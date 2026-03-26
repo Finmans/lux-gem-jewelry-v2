@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/shared/navbar";
-import { Footer } from "@/components/shared/footer";
-import { DiamondParticles } from "@/components/shared/diamond-particles";
+import { ClientLayout } from "@/components/shared/client-layout";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -58,10 +56,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <DiamondParticles />
-        <Navbar />
-        <div className="flex-1">{children}</div>
-        <Footer />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
