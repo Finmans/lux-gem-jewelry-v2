@@ -23,9 +23,28 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "LUX GEM — Lab-Grown Diamond Jewelry",
+  metadataBase: new URL("https://my-app-ebon-alpha-25.vercel.app"),
+  title: {
+    default: "LUX GEM — Lab-Grown Diamond Jewelry",
+    template: "%s | LUX GEM",
+  },
   description:
     "Crafted Brilliance, Reimagined. Premium lab-grown diamond jewelry with uncompromising quality, transparency, and timeless design.",
+  openGraph: {
+    title: "LUX GEM — Lab-Grown Diamond Jewelry",
+    description:
+      "Crafted Brilliance, Reimagined. Premium lab-grown diamond jewelry with uncompromising quality, transparency, and timeless design.",
+    url: "https://my-app-ebon-alpha-25.vercel.app",
+    siteName: "LUX GEM",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LUX GEM — Lab-Grown Diamond Jewelry",
+    description:
+      "Crafted Brilliance, Reimagined. Premium lab-grown diamond jewelry with uncompromising quality, transparency, and timeless design.",
+  },
 };
 
 export default function RootLayout({

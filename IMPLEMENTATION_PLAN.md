@@ -30,33 +30,33 @@
 - [x] Replace marketing claims with real DB-driven values
 
 ### Phase 3 - Core luxury commerce flows
-- [ ] Collections: category filter + detail pages + product inquiry linkage
-- [ ] Diamond stock: filtering + sorting + pagination + detail + reserve + sourcing CTA
-- [ ] Build flow: 3 functional steps + draft persistence + inquiry submission
-- [ ] Custom design page: complete brief form + budget + category + reference upload fallback
+- [x] Collections: category filter + detail pages + product inquiry linkage
+- [x] Diamond stock: filtering + sorting + pagination + detail + reserve + sourcing CTA
+- [x] Build flow: 3 functional steps + draft persistence + inquiry submission
+- [x] Custom design page: complete brief form + budget + category + reference upload fallback
 
 ### Phase 4 - Conversion and communication
-- [ ] Working submissions for: appointment, contact, newsletter, custom inquiry, reserve diamond, ring build
-- [ ] Add validation, success/error states, honeypot, server logging
-- [ ] Persist all submissions in DB
-- [ ] Email notification adapter (Resend when configured, dev-safe logging fallback)
+- [x] Working submissions for: appointment, contact, newsletter, custom inquiry, reserve diamond, ring build
+- [x] Add validation, success/error states, honeypot, server logging
+- [x] Persist all submissions in DB
+- [x] Email notification adapter (Resend when configured, dev-safe logging fallback)
 
 ### Phase 5 - Utility actions
-- [ ] Search implemented end-to-end
-- [ ] Wishlist implemented (local storage acceptable)
-- [ ] Cart either hidden or implemented as inquiry/quote cart (consultation-first)
+- [x] Search implemented end-to-end
+- [x] Wishlist implemented (local storage acceptable)
+- [x] Cart either hidden or implemented as inquiry/quote cart (consultation-first)
 
 ### Phase 6 - Trust, legal, education
-- [ ] Trust/legal content pages polished and consistent with actual policy
-- [ ] Certificate verify supports certificate lookup against seeded records
-- [ ] Claims aligned to implemented behavior
+- [x] Trust/legal content pages polished and consistent with actual policy
+- [x] Certificate verify supports certificate lookup against seeded records
+- [x] Claims aligned to implemented behavior
 
 ### Phase 7 - Quality and launch readiness
-- [ ] Metadata + OG for all public pages
-- [ ] `sitemap` + `robots`
+- [x] Metadata + OG defaults in layout plus route metadata for key conversion and policy pages
+- [x] `sitemap` + `robots`
 - [ ] Accessibility pass: semantic headings, labels, keyboard, focus, aria
 - [ ] Performance pass: limit client components, lazy-load heavy visuals, optimize images
-- [ ] Add error boundary and not-found page
+- [x] Add error boundary and not-found page
 - [ ] Add minimal tests for critical paths
 
 ## Delivery Strategy
