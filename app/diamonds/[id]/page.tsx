@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDiamondById, getDiamonds } from "@/lib/site-data";
+import { getDiamondById } from "@/lib/site-data";
 import { ReserveDiamondForm } from "@/components/forms/reserve-diamond-form";
 import { WishlistToggle } from "@/components/client/wishlist-toggle";
 
@@ -21,9 +21,7 @@ const shapeIcons: Record<string, string> = {
   Asscher: "⊠",
 };
 
-export function generateStaticParams() {
-  return getDiamonds().then((diamonds) => diamonds.map((diamond) => ({ id: diamond.id })));
-}
+export const dynamic = "force-dynamic";
 
 export default async function DiamondDetailPage({ params }: DiamondPageProps) {
   const { id } = await params;

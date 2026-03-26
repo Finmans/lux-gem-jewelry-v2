@@ -1,5 +1,8 @@
 import type { MetadataRoute } from "next";
+
 import { getCollections, getDiamonds } from "@/lib/site-data";
+
+export const dynamic = "force-dynamic";
 
 const baseUrl = "https://my-app-ebon-alpha-25.vercel.app";
 

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+
 import Link from "next/link";
 import { getCollections, getDiamonds, getFeaturedProducts } from "@/lib/site-data";
+
+export const dynamic = "force-dynamic";
 
 type SearchPageProps = {
   searchParams: Promise<{ q?: string }>;

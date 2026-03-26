@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+
 import { BuildPageClient } from "@/components/pages/build-page-client";
 import { getDiamonds, getSettings } from "@/lib/site-data";
+
+export const dynamic = "force-dynamic";
 
 type BuildPageProps = {
   searchParams: Promise<{ diamond?: string }>;

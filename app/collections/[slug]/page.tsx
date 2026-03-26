@@ -1,16 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCollectionBySlug, getCollections, getFeaturedProducts } from "@/lib/site-data";
+import { getCollectionBySlug, getFeaturedProducts } from "@/lib/site-data";
+
+export const dynamic = "force-dynamic";
 
 type CollectionPageProps = {
   params: Promise<{ slug: string }>;
 };
-
-export function generateStaticParams() {
-  return getCollections().then((collections) =>
-    collections.map((collection) => ({ slug: collection.slug }))
-  );
-}
 
 export default async function CollectionDetailPage({ params }: CollectionPageProps) {
   const { slug } = await params;
