@@ -29,6 +29,9 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
   const [selectedColor, setSelectedColor] = useState<string>("All");
   const [selectedClarity, setSelectedClarity] = useState<string>("All");
   const [selectedLab, setSelectedLab] = useState<string>("All");
+  const [sortBy, setSortBy] = useState<"priceAsc" | "priceDesc" | "caratDesc">("priceAsc");
+  const [page, setPage] = useState(1);
+  const pageSize = 6;
   const filtered = diamonds.filter((d) => {
     if (selectedShape !== "All" && d.shape !== selectedShape) return false;
     if (selectedColor !== "All" && d.color !== selectedColor) return false;
@@ -40,6 +43,16 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
   const hasFilters =
     selectedShape !== "All" || selectedColor !== "All" ||
     selectedClarity !== "All" || selectedLab !== "All";
+
+  const sorted = [...filtered].sort((a, b) => {
+    if (sortBy === "priceDesc") return b.priceTHB - a.priceTHB;
+    if (sortBy === "caratDesc") return b.carat - a.carat;
+    return a.priceTHB - b.priceTHB;
+  });
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const paginated = sorted.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <main className="min-h-screen bg-[#0B0B0D] pt-20">
@@ -72,7 +85,10 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
           <p className="text-[9px] tracking-[0.3em] text-[#8A8F98] uppercase mb-4">Shape</p>
           <div className="flex flex-wrap gap-2">
             <button
-              onClick={() => setSelectedShape("All")}
+              onClick={() => {
+                setSelectedShape("All");
+                setPage(1);
+              }}
               className={cn(
                 "px-4 py-2 text-[10px] tracking-[0.15em] uppercase border transition-all duration-300",
                 selectedShape === "All"
@@ -85,7 +101,10 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
             {shapes.map((shape) => (
               <button
                 key={shape}
-                onClick={() => setSelectedShape(shape)}
+                onClick={() => {
+                  setSelectedShape(shape);
+                  setPage(1);
+                }}
                 className={cn(
                   "flex flex-col items-center gap-1 px-4 py-2.5 border transition-all duration-300",
                   selectedShape === shape
@@ -109,7 +128,10 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
               {["All", ...colors].map((c) => (
                 <button
                   key={c}
-                  onClick={() => setSelectedColor(c)}
+                  onClick={() => {
+                    setSelectedColor(c);
+                    setPage(1);
+                  }}
                   className={cn(
                     "px-2.5 py-1 text-[10px] border transition-all",
                     selectedColor === c
@@ -132,7 +154,10 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
               {["All", ...clarities].map((c) => (
                 <button
                   key={c}
-                  onClick={() => setSelectedClarity(c)}
+                  onClick={() => {
+                    setSelectedClarity(c);
+                    setPage(1);
+                  }}
                   className={cn(
                     "px-2.5 py-1 text-[10px] border transition-all",
                     selectedClarity === c
@@ -155,7 +180,10 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
               {["All", ...labs].map((l) => (
                 <button
                   key={l}
-                  onClick={() => setSelectedLab(l)}
+                  onClick={() => {
+                    setSelectedLab(l);
+                    setPage(1);
+                  }}
                   className={cn(
                     "px-2.5 py-1 text-[10px] border transition-all",
                     selectedLab === l
@@ -177,6 +205,7 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
                 setSelectedColor("All");
                 setSelectedClarity("All");
                 setSelectedLab("All");
+                setPage(1);
               }}
               className="ml-auto flex items-center gap-1 text-[10px] tracking-[0.15em] text-[#8A8F98] hover:text-[#C6A878] uppercase transition-colors"
             >
@@ -188,11 +217,24 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
         {/* Results count */}
         <div className="flex items-center justify-between mb-4">
           <p className="text-xs text-[#8A8F98] font-light">
-            Showing <span className="text-[#F6F1E8]">{filtered.length}</span> diamonds
+            Showing <span className="text-[#F6F1E8]">{paginated.length}</span> of <span className="text-[#F6F1E8]">{filtered.length}</span> diamonds
           </p>
-          <button className="flex items-center gap-1.5 text-[10px] tracking-[0.15em] text-[#8A8F98] uppercase hover:text-[#C6A878] transition-colors">
-            <ArrowUpDown className="w-3 h-3" /> Sort: Price
-          </button>
+          <label className="flex items-center gap-2 text-[10px] tracking-[0.15em] text-[#8A8F98] uppercase">
+            <ArrowUpDown className="w-3 h-3" />
+            <span>Sort</span>
+            <select
+              value={sortBy}
+              onChange={(event) => {
+                setSortBy(event.target.value as "priceAsc" | "priceDesc" | "caratDesc");
+                setPage(1);
+              }}
+              className="bg-[#111115] border border-[#2A2A30] px-2 py-1 text-[10px] text-[#F6F1E8]"
+            >
+              <option value="priceAsc">Price: Low to High</option>
+              <option value="priceDesc">Price: High to Low</option>
+              <option value="caratDesc">Carat: High to Low</option>
+            </select>
+          </label>
         </div>
 
         {/* Diamond table */}
@@ -209,27 +251,33 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
               <div className="py-20 text-center">
                 <p className="text-[#8A8F98] font-light">No diamonds match your filters.</p>
                 <button
-                  onClick={() => { setSelectedShape("All"); setSelectedColor("All"); setSelectedClarity("All"); setSelectedLab("All"); }}
+                  onClick={() => {
+                    setSelectedShape("All");
+                    setSelectedColor("All");
+                    setSelectedClarity("All");
+                    setSelectedLab("All");
+                    setPage(1);
+                  }}
                   className="mt-4 text-[#C6A878] text-sm underline underline-offset-4"
                 >
                   Clear filters
                 </button>
               </div>
             ) : (
-              filtered.map((d, i) => (
+              paginated.map((d, i) => (
                 <motion.div
                   key={d.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3, delay: i * 0.04 }}
-                  className={cn(i < filtered.length - 1 && "border-b border-[#1A1A1E]")}
+                  className={cn(i < paginated.length - 1 && "border-b border-[#1A1A1E]")}
                 >
                   <Link
                     href={`/diamonds/${d.id}`}
                     className="group grid grid-cols-2 md:grid-cols-[50px_70px_1fr_70px_60px_80px_70px_80px_120px] gap-3 px-5 py-4 hover:bg-[#111115] transition-colors items-center"
                   >
-                    <p className="text-[10px] text-[#8A8F98]/40 font-mono hidden md:block">{i + 1}</p>
+                    <p className="text-[10px] text-[#8A8F98]/40 font-mono hidden md:block">{(currentPage - 1) * pageSize + i + 1}</p>
                     <div className="flex flex-col items-start md:items-center">
                       <span className="text-xl text-[#C6A878]/80">{shapeIcons[d.shape] ?? "◇"}</span>
                       <span className="text-[9px] text-[#8A8F98]/60 mt-0.5">{d.shape}</span>
@@ -256,11 +304,35 @@ export function DiamondsPageClient({ diamonds }: DiamondsPageClientProps) {
           </AnimatePresence>
         </div>
 
+        {totalPages > 1 ? (
+          <div className="mt-4 flex items-center justify-between text-xs text-[#8A8F98]">
+            <p>Page {currentPage} of {totalPages}</p>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 border border-[#2A2A30] disabled:opacity-40"
+              >
+                Previous
+              </button>
+              <button
+                type="button"
+                onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 border border-[#2A2A30] disabled:opacity-40"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        ) : null}
+
         {/* Bottom CTA */}
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#1A1A1E]">
           <p className="text-sm text-[#8A8F98] font-light">
             Can&apos;t find what you&apos;re looking for?{" "}
-            <Link href="/appointment" className="text-[#C6A878] underline underline-offset-4">
+            <Link href="/custom?intent=source" className="text-[#C6A878] underline underline-offset-4">
               Request a bespoke sourcing
             </Link>
           </p>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Search, Heart, ShoppingBag, Phone } from "lucide-react";
+import { Menu, X, Search, Heart, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -74,13 +74,6 @@ export function Navbar() {
             <Heart className="w-4 h-4" />
           </Link>
           <Link
-            href="/quote-cart"
-            className="p-2 text-[#8A8F98] hover:text-[#C6A878] transition-colors"
-            aria-label="Cart"
-          >
-            <ShoppingBag className="w-4 h-4" />
-          </Link>
-          <Link
             href="/appointment"
             className="ml-2 flex items-center gap-1.5 px-5 py-2 border border-[#C6A878]/60 text-[#C6A878] text-[10px] tracking-[0.25em] uppercase hover:bg-[#C6A878]/10 transition-all duration-300"
           >
@@ -126,9 +119,6 @@ export function Navbar() {
                 </Link>
                 <Link href="/wishlist" className="p-2 text-[#8A8F98] hover:text-[#C6A878] transition-colors" aria-label="Wishlist">
                   <Heart className="w-5 h-5" />
-                </Link>
-                <Link href="/quote-cart" className="p-2 text-[#8A8F98] hover:text-[#C6A878] transition-colors" aria-label="Cart">
-                  <ShoppingBag className="w-5 h-5" />
                 </Link>
               </div>
               <Link

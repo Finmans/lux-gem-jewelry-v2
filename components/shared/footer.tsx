@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Camera, Globe, Play, MessageCircle } from "lucide-react";
+import { NewsletterForm } from "@/components/forms/newsletter-form";
 
 const footerLinks = {
   Jewelry: [
@@ -23,6 +24,8 @@ const footerLinks = {
     { label: "Ring Sizing", href: "/services/sizing" },
     { label: "Cleaning & Care", href: "/services/care" },
     { label: "Certificate Verify", href: "/services/verify" },
+    { label: "Warranty", href: "/warranty" },
+    { label: "Returns & Exchanges", href: "/returns" },
   ],
   Company: [
     { label: "About LUX GEM", href: "/about" },
@@ -67,16 +70,7 @@ export function Footer() {
               <p className="text-[10px] tracking-[0.3em] text-[#C6A878] uppercase mb-3">
                 Join our inner circle
               </p>
-              <div className="flex gap-0 max-w-sm">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-1 bg-[#111115] border border-[#2A2A30] border-r-0 px-4 py-3 text-sm text-[#F6F1E8] placeholder:text-[#8A8F98]/50 focus:outline-none focus:border-[#C6A878]/50 transition-colors"
-                />
-                <button className="bg-[#C6A878] text-[#0B0B0D] px-6 py-3 text-[10px] tracking-[0.25em] uppercase font-medium hover:bg-[#D9C4A0] transition-colors whitespace-nowrap">
-                  Subscribe
-                </button>
-              </div>
+              <NewsletterForm sourcePage="footer" />
               <p className="text-xs text-[#8A8F98]/60 mt-2">
                 Exclusive collections, events & diamond education.
               </p>

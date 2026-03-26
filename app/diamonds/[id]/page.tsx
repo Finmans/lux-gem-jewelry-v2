@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDiamondById, getDiamonds } from "@/lib/site-data";
+import { ReserveDiamondForm } from "@/components/forms/reserve-diamond-form";
+import { WishlistToggle } from "@/components/client/wishlist-toggle";
 
 type DiamondPageProps = {
   params: Promise<{ id: string }>;
@@ -58,12 +60,10 @@ export default async function DiamondDetailPage({ params }: DiamondPageProps) {
               >
                 Build With This Diamond
               </Link>
-              <Link
-                href={`/appointment?diamond=${diamond.id}`}
-                className="px-6 py-3 border border-[#C6A878]/40 text-[#C6A878] text-[10px] tracking-[0.25em] uppercase hover:bg-[#C6A878]/10 transition-colors text-center"
-              >
-                Reserve Consultation
-              </Link>
+              <WishlistToggle diamondId={diamond.id} />
+            </div>
+            <div className="mt-5">
+              <ReserveDiamondForm diamondId={diamond.id} />
             </div>
           </div>
         </div>
