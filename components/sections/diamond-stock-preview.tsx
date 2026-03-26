@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Shield } from "lucide-react";
-import { diamonds } from "@/lib/mock-data";
+import type { DiamondRecord } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 const shapeIcons: Record<string, string> = {
@@ -63,7 +63,11 @@ function CaratBar({ carat }: { carat: number }) {
   );
 }
 
-export function DiamondStockPreviewSection() {
+type DiamondStockPreviewSectionProps = {
+  diamonds: DiamondRecord[];
+};
+
+export function DiamondStockPreviewSection({ diamonds }: DiamondStockPreviewSectionProps) {
   const preview = diamonds.slice(0, 6);
 
   return (

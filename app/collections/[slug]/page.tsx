@@ -1,24 +1,27 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { collections, featuredProducts } from "@/lib/mock-data";
+import { getCollectionBySlug, getCollections, getFeaturedProducts } from "@/lib/site-data";
 
 type CollectionPageProps = {
   params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
-  return collections.map((collection) => ({ slug: collection.id }));
+  return getCollections().then((collections) =>
+    collections.map((collection) => ({ slug: collection.slug }))
+  );
 }
 
 export default async function CollectionDetailPage({ params }: CollectionPageProps) {
   const { slug } = await params;
-  const collection = collections.find((entry) => entry.id === slug);
+  const [collection, products] = await Promise.all([
+    getCollectionBySlug(slug),
+    getFeaturedProducts(slug),
+  ]);
 
   if (!collection) {
     notFound();
   }
-
-  const products = featuredProducts.filter((product) => product.collection === slug);
 
   return (
     <main className="min-h-screen bg-[#0B0B0D] pt-20">
@@ -51,7 +54,7 @@ export default async function CollectionDetailPage({ params }: CollectionPagePro
                     <p className="text-[#8A8F98] text-sm font-light mb-4">{product.description}</p>
                     <div className="flex items-center justify-between">
                       <p className="text-[#C6A878] font-light">฿{product.priceTHB.toLocaleString()}</p>
-                      <Link href={`/custom?product=${product.id}`} className="text-[10px] tracking-[0.2em] text-[#C6A878] uppercase hover:text-[#D9C4A0]">
+                      <Link href={`/custom?product=${product.slug}`} className="text-[10px] tracking-[0.2em] text-[#C6A878] uppercase hover:text-[#D9C4A0]">
                         Inquire
                       </Link>
                     </div>

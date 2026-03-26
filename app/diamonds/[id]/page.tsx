@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { diamonds } from "@/lib/mock-data";
+import { getDiamondById, getDiamonds } from "@/lib/site-data";
 
 type DiamondPageProps = {
   params: Promise<{ id: string }>;
@@ -20,12 +20,12 @@ const shapeIcons: Record<string, string> = {
 };
 
 export function generateStaticParams() {
-  return diamonds.map((diamond) => ({ id: diamond.id }));
+  return getDiamonds().then((diamonds) => diamonds.map((diamond) => ({ id: diamond.id })));
 }
 
 export default async function DiamondDetailPage({ params }: DiamondPageProps) {
   const { id } = await params;
-  const diamond = diamonds.find((entry) => entry.id === id);
+  const diamond = await getDiamondById(id);
 
   if (!diamond) {
     notFound();

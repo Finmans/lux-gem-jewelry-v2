@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, ArrowLeft, Phone } from "lucide-react";
-import { diamonds, collections } from "@/lib/mock-data";
+import { diamonds } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
 
 const steps = [

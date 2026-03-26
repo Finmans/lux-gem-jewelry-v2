@@ -23,11 +23,11 @@
 - [x] Verify no user-facing 404 from visible navigation
 
 ### Phase 2 - Real data layer
-- [ ] Add Prisma + SQLite local + PostgreSQL-ready env config
-- [ ] Define models: `Collection`, `Product`, `Diamond`, `Setting`, `BuildDraft`, `Inquiry`, `Appointment`, `NewsletterSubscriber`, `CertificateRecord`, `SiteSettings`
-- [ ] Seed current mock dataset into Prisma
-- [ ] Move homepage/collections/diamonds/details to one data source
-- [ ] Replace marketing claims with real DB-driven values
+- [x] Add Prisma + SQLite local + PostgreSQL-ready env config
+- [x] Define models: `Collection`, `Product`, `Diamond`, `Setting`, `BuildDraft`, `Inquiry`, `Appointment`, `NewsletterSubscriber`, `CertificateRecord`, `SiteSettings`
+- [x] Seed current mock dataset into Prisma
+- [x] Move homepage/collections/diamonds/details to one data source
+- [x] Replace marketing claims with real DB-driven values
 
 ### Phase 3 - Core luxury commerce flows
 - [ ] Collections: category filter + detail pages + product inquiry linkage

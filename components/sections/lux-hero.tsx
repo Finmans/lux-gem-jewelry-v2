@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { GemSparkle } from "@/components/ui/gem-sparkle";
 import dynamic from "next/dynamic";
-import { diamonds } from "@/lib/mock-data";
 
 // Dynamic import — no SSR, show the SVG diamond while the 3D bundle loads
 const Diamond3DLazy = dynamic(
@@ -187,9 +186,11 @@ const fadeUp = {
   animate: { opacity: 1, y: 0 },
 };
 
-export function LuxHeroSection() {
-  const inventoryCount = diamonds.length;
+type LuxHeroSectionProps = {
+  diamondCount: number;
+};
 
+export function LuxHeroSection({ diamondCount }: LuxHeroSectionProps) {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0B0B0D]">
 
@@ -406,11 +407,11 @@ export function LuxHeroSection() {
             <motion.div variants={fadeUp} initial="initial" animate="animate"
               transition={{ duration: 0.7, delay: 0.45 }}
               className="flex items-center gap-6 mt-10 pt-8 border-t border-[#1A1A1E]">
-              {[
-                { value: "GIA / IGI", label: "Certified" },
-                { value: `${inventoryCount}`, label: "Diamonds in stock" },
-                { value: "30-Day", label: "Returns" },
-              ].map((stat, i) => (
+                {[
+                  { value: "GIA / IGI", label: "Certified" },
+                  { value: `${diamondCount}`, label: "Diamonds in stock" },
+                  { value: "30-Day", label: "Returns" },
+                ].map((stat, i) => (
                 <motion.div key={stat.label}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}

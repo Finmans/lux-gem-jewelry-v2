@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { collections } from "@/lib/mock-data";
 import { GemSparkle } from "@/components/ui/gem-sparkle";
+import type { CollectionCard } from "@/lib/site-data";
 
 // Animated diamond mark
 function DiamondMark({ className }: { className?: string }) {
@@ -48,7 +48,11 @@ const item = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-export function FeaturedCollectionsSection() {
+type FeaturedCollectionsSectionProps = {
+  collections: CollectionCard[];
+};
+
+export function FeaturedCollectionsSection({ collections }: FeaturedCollectionsSectionProps) {
   const featured = collections.slice(0, 6);
 
   return (
@@ -100,7 +104,7 @@ export function FeaturedCollectionsSection() {
           {featured.map((col) => (
             <motion.div key={col.id} variants={item}>
               <Link
-                href={`/collections/${col.id}`}
+                href={`/collections/${col.slug}`}
                 className="group block relative overflow-hidden border border-[#1A1A1E] hover:border-[#C6A878]/40 transition-all duration-500"
               >
                 {/* Visual area */}
@@ -181,7 +185,7 @@ export function FeaturedCollectionsSection() {
                       </div>
                       <div className="flex items-center gap-1.5 text-[9px] tracking-[0.15em] text-[#8A8F98] uppercase">
                         <div className="w-1 h-1 rotate-45 bg-[#C6A878]/40" />
-                        {col.count} pieces
+                        {col.pieceCount} pieces
                       </div>
                     </div>
                   </div>

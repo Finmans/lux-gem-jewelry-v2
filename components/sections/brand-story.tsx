@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { GemSparkle } from "@/components/ui/gem-sparkle";
-import { diamonds } from "@/lib/mock-data";
 
 const pillars = [
   {
@@ -125,9 +124,11 @@ function LightRay({ angle, delay }: { angle: number; delay: number }) {
   );
 }
 
-export function BrandStorySection() {
-  const inventoryCount = diamonds.length;
+type BrandStorySectionProps = {
+  diamondCount: number;
+};
 
+export function BrandStorySection({ diamondCount }: BrandStorySectionProps) {
   return (
     <section className="py-28 bg-[#080809] relative overflow-hidden">
       {/* Section facet background */}
@@ -238,7 +239,7 @@ export function BrandStorySection() {
                       transition={{ duration: 0.6, delay: 0.3 }}
                       className="font-display text-3xl font-light text-[#C6A878]"
                     >
-                      {inventoryCount}
+                      {diamondCount}
                     </motion.p>
                     <p className="text-[9px] tracking-[0.2em] text-[#8A8F98] uppercase mt-0.5">Certified Diamonds</p>
                   </div>
